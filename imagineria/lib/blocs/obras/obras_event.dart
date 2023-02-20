@@ -7,4 +7,14 @@ abstract class ObrasEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetObrasList extends ObrasEvent {}
+class Loading extends ObrasEvent {}
+
+class ObrasPressed extends ObrasEvent{
+
+  final String id;
+
+  ObrasPressed({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}

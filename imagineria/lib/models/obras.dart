@@ -1,24 +1,26 @@
 class ObrasModel {
-  final String name;
-  final double precio;
-  final String titulo;
-  final String img;
-  final String estado;
-  final DateTime fecha;
-  final String estilo;
-  String? error;
+  String? id;
+  String? name;
+  double? precio;
+  String? titulo;
+  String? img;
+  String? estado;
+  DateTime? fecha;
+  String? estilo;
 
   ObrasModel(
-      {required this.name,
-      required this.precio,
-      required this.titulo,
-      required this.img,
-      required this.estado,
-      required this.fecha,
-      required this.estilo});
+      {this.id,
+      this.name,
+      this.precio,
+      this.titulo,
+      this.img,
+      this.estado,
+      this.fecha,
+      this.estilo});
 
   factory ObrasModel.fromJson(Map<String, dynamic> json) {
     return ObrasModel(
+        id: json['id'],
         name: json['name'],
         precio: json['precio'],
         titulo: json['titulo'],
@@ -28,7 +30,20 @@ class ObrasModel {
         estilo: json['estilo']);
   }
 
-  //ObrasModel.withError(String errorM) {
-  //  error = errorM;
-  // }
+  Map<String, dynamic> toJson(){
+
+    final Map<String, dynamic> data = <String, dynamic>{};
+
+        data['id'] = id;
+        data['name'] = name;
+        data['precio'] = precio;
+        data['titulo'] = titulo;
+        data['img'] = img;
+        data['estado'] = estado;
+        data['fecha'] = fecha;
+        data['estilo'] = estilo;
+
+        return data;  
+        
+        }
 }
