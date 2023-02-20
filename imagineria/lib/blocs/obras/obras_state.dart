@@ -13,18 +13,18 @@ class ObrasInitial extends ObrasState {}
 class ObrasLoading extends ObrasState {}
 
 class ObrasLoaded extends ObrasState {
-  final ObrasModel obrasModel;
+  final List<ObrasModel> obras;
 
-  ObrasLoaded(this.obrasModel);
+  ObrasLoaded({required this.obras});
 
   @override
-  List<Object> get props => [obrasModel];
+  List<Object> get props => [obras];
 }
 
 class ObrasError extends ObrasState {
   final String error;
 
-  const ObrasError(this.error);
+  ObrasError({required this.error});
 
   @override
   List<Object> get props => [error];

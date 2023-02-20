@@ -58,7 +58,7 @@ class JwtAuthenticationService extends AuthenticationService {
     String? loggedUser = _localStorageService.getFromDisk("user");
     if (loggedUser != null) {
       var user = LoginResponse.fromJson(jsonDecode(loggedUser));
-      return User(email: user.username ?? "", name: user.fullName ?? "", accessToken: user.token ?? ""); 
+      return User(email: user.username ?? "", name: user.fullName ?? "", accessToken: user.token ?? "", username: user.username ?? ""); 
     }
     return null;
   }
@@ -67,7 +67,7 @@ class JwtAuthenticationService extends AuthenticationService {
   Future<User> signInWithEmailAndPassword(String email, String password) async {
     LoginResponse response = await _authenticationRepository.doLogin(email, password);
     await _localStorageService.saveToDisk('user', jsonEncode(response.toJson()));
-    return User(email: response.username ?? "", name: response.fullName ?? "", accessToken: response.token ?? "");
+    return User(email: response.username ?? "", name: response.fullName ?? "", accessToken: response.token ?? "", username: response.username ?? "");
   }
 
   @override

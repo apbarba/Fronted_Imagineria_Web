@@ -4,6 +4,8 @@ import 'package:flutter_bloc_authentication/blocs/obras/obras_bloc.dart';
 import 'package:flutter_bloc_authentication/blocs/obras/obras_event.dart';
 import 'package:flutter_bloc_authentication/blocs/obras/obras_state.dart';
 import 'package:flutter_bloc_authentication/models/models.dart';
+import 'package:flutter_bloc_authentication/rest/rest.dart';
+import 'package:flutter_bloc_authentication/services/authentication_service.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
 class ObrasPage extends StatefulWidget {
@@ -12,11 +14,11 @@ class ObrasPage extends StatefulWidget {
 }
 
 class _ObrasPageState extends State<ObrasPage> {
-  final ObrasBloc _newBloc = ObrasBloc();
+  final ObrasBloc _newBloc = ObrasBloc(JwtAuthenticationService as AuthenticationService, RestClient as AuthenticationService);
 
   @override
   void initState() {
-    _newBloc.add(GetObrasList());
+    _newBloc.add(Loading());
     super.initState();
   }
 
@@ -38,7 +40,7 @@ class _ObrasPageState extends State<ObrasPage> {
               if (state is ObrasError) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.message!),
+                    content: Text(state.error!),
                   ),
                 );
               }
@@ -50,7 +52,7 @@ class _ObrasPageState extends State<ObrasPage> {
               } else if (state is ObrasLoading) {
                 return _buildLoading();
               } else if (state is ObrasLoaded) {
-                return _buildCard(context, state.obrasModel);
+                return _buildCard(context, state.obras as ObrasModel);
               } else if (state is ObrasError) {
                 return Container();
               } else {
@@ -63,7 +65,7 @@ class _ObrasPageState extends State<ObrasPage> {
 
   Widget _buildCard(BuildContext context, ObrasModel model) {
     return ListView.builder(
-      itemCount: model.name.length,
+      itemCount: model.name.hashCode,
       itemBuilder: (context, index) {
         return Container(
           margin: EdgeInsets.all(8.0),
@@ -72,7 +74,7 @@ class _ObrasPageState extends State<ObrasPage> {
               margin: EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[
-                  Text("Name: ${model.name[index].length}"),
+                  Text("Name: ${model.name?[index].length}"),
                   Text("Titulo: ${model.titulo}"),
                   Text("Precio: ${model.precio}"),
                   Text("Estado: ${model.estado}"),

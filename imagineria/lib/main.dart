@@ -40,9 +40,8 @@ class MyApp extends StatelessWidget {
             );
           }
           // otherwise show login page
-          return LoginPage(
-              MaterialPageRoute(builder: (context) => ObrasView()));
-        },
+          return LoginPage();      
+           },
       ),
     );
   }

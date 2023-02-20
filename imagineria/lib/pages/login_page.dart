@@ -5,7 +5,6 @@ import '../blocs/blocs.dart';
 import '../services/services.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage(MaterialPageRoute materialPageRoute);
 
   @override
   Widget build(BuildContext context) {
