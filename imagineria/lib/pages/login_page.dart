@@ -5,6 +5,8 @@ import '../blocs/blocs.dart';
 import '../services/services.dart';
 
 class LoginPage extends StatelessWidget {
+  LoginPage(MaterialPageRoute materialPageRoute);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,14 +21,13 @@ class LoginPage extends StatelessWidget {
               if (state is AuthenticationNotAuthenticated) {
                 return _AuthForm();
               }
-              if (state is AuthenticationFailure || state is SessionExpiredState) {
-                var msg = (state as AuthenticationFailure).message;
+              if (state is AuthenticationFailure) {
                 return Center(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(msg),
+                    Text(state.message),
                     TextButton(
                       //textColor: Theme.of(context).primaryColor,
                       child: Text('Retry'),
@@ -83,7 +84,8 @@ class __SignInFormState extends State<_SignInForm> {
 
     _onLoginButtonPressed() {
       if (_key.currentState!.validate()) {
-        _loginBloc.add(LoginInWithEmailButtonPressed(email: _emailController.text, password: _passwordController.text));
+        _loginBloc.add(LoginInWithEmailButtonPressed(
+            email: _emailController.text, password: _passwordController.text));
       } else {
         setState(() {
           _autoValidate = true;
@@ -106,7 +108,9 @@ class __SignInFormState extends State<_SignInForm> {
           }
           return Form(
             key: _key,
-            autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+            autovalidateMode: _autoValidate
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -149,13 +153,14 @@ class __SignInFormState extends State<_SignInForm> {
                     height: 16,
                   ),
                   //RaisedButton(
-                  ElevatedButton(  
+                  ElevatedButton(
                     //color: Theme.of(context).primaryColor,
                     //textColor: Colors.white,
                     //padding: const EdgeInsets.all(16),
                     //shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8.0)),
                     child: Text('LOG IN'),
-                    onPressed: state is LoginLoading ? () {} : _onLoginButtonPressed,
+                    onPressed:
+                        state is LoginLoading ? () {} : _onLoginButtonPressed,
                   )
                 ],
               ),
@@ -173,7 +178,5 @@ class __SignInFormState extends State<_SignInForm> {
     ));*/
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
-
-
   }
 }

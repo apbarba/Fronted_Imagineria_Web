@@ -1,31 +1,25 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc_authentication/models/models.dart';
 
-abstract class ObrasState extends Equatable{}
-
-class ObrasLoadingState extends ObrasState{
+abstract class ObrasState extends Equatable {
+  const ObrasState();
 
   @override
   List<Object?> get props => [];
 }
 
-class ObrasLoadedState extends ObrasState{
+class ObrasInitial extends ObrasState {}
 
-  ObrasLoadedState(this.obras);
+class ObrasLoading extends ObrasState {}
 
-  final List<ObrasModel> obras;
+class ObrasLoaded extends ObrasState {
+  final ObrasModel obrasModel;
 
-  @override
-  List<Object?> get props => [obras];
+  const ObrasLoaded(this.obrasModel);
 }
 
-class ObrasErrorState extends ObrasState{
+class ObrasError extends ObrasState {
+  final String? message;
 
-  ObrasErrorState(this.error);
-
-  final String error;
-
-  @override
-  List<Object?> get props => [error];
+  const ObrasError(this.message);
 }

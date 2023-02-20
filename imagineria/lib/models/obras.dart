@@ -1,5 +1,4 @@
-class ObrasModel{
-
+class ObrasModel {
   final String name;
   final double precio;
   final String titulo;
@@ -7,28 +6,29 @@ class ObrasModel{
   final String estado;
   final DateTime fecha;
   final String estilo;
+  String? error;
 
   ObrasModel(
-    {
-      required this.name,
+      {required this.name,
       required this.precio,
       required this.titulo,
       required this.img,
       required this.estado,
       required this.fecha,
-      required this.estilo
-    }
-  );
+      required this.estilo});
 
   factory ObrasModel.fromJson(Map<String, dynamic> json) {
-
     return ObrasModel(
-      name: json['name'], 
-      precio: json['precio'], 
-      titulo: json['titulo'], 
-      img: json['img'], 
-      estado: json['estado'], 
-      fecha: json['fecha'], 
-      estilo: json['estilo']);
+        name: json['name'],
+        precio: json['precio'],
+        titulo: json['titulo'],
+        img: json['img'],
+        estado: json['estado'],
+        fecha: json['fecha'],
+        estilo: json['estilo']);
   }
+
+  //ObrasModel.withError(String errorM) {
+  //  error = errorM;
+  // }
 }

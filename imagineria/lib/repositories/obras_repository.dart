@@ -1,23 +1,33 @@
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter_bloc_authentication/models/models.dart';
-import 'package:http/http.dart';
+import 'package:injectable/injectable.dart';
+import 'package:http/http.dart' as http;
 
-class ObrasRepositoy{
+const _postLimit = 10;
 
-  String endpoint = 'http://localhost:8080/obras/';
+@singleton
+class ObrasRepository {
+  final httpClient = http.Client();
 
-  Future<List<ObrasModel>> getObras() async {
+  Future<List<ObrasModel>> fetchObras([int startIndex = 0]) async {
+    final response = await httpClient.get(
+      Uri.https(
+        '/obras/',
+        <String, String>{'_start': '$startIndex', '_limit': '$_postLimit'}
+            as String,
+      ),
+    );
 
-    Response response = await get(Uri.parse(endpoint));
+    if (response.statusCode == 200) {
+      final body = json.decode(response.body) as List;
 
-    if(response.statusCode == 200){
-
-      final List result = jsonDecode(response.body)['data'];
-
-      return result.map(((e) => ObrasModel.fromJson(e))).toList();
-    }else{
-
-      throw Exception(response.reasonPhrase);
+      return List<ObrasModel>.from(body.map((e) => ObrasModel.fromJson(e)));
     }
+
+    throw Exception("Error al cargar las listas");
   }
 }
+
+class NetworkError extends Error {}

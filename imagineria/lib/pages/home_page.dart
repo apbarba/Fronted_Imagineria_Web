@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_authentication/blocs/authentication/authentication.dart';
-import 'package:flutter_bloc_authentication/config/locator.dart';
-import 'package:flutter_bloc_authentication/services/services.dart';
 import '../models/models.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,30 +21,20 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                'Welcome, ${user.fullName}',
-                style: TextStyle(
-                  fontSize: 24
-                ),
+                'Welcome, ${user.name}',
+                style: TextStyle(fontSize: 24),
               ),
               const SizedBox(
                 height: 12,
               ),
-              ElevatedButton(
+              TextButton(
                 //textColor: Theme.of(context).primaryColor,
-                /*style: TextButton.styleFrom(
-                  primary: Theme.of(context).primaryColor,
-                ),*/
+                style: TextButton.styleFrom(
+                    primary: Theme.of(context).canvasColor),
                 child: Text('Logout'),
-                onPressed: (){
+                onPressed: () {
                   authBloc.add(UserLoggedOut());
                 },
-              ),
-              ElevatedButton(onPressed: () async {
-                print("Check");
-                JwtAuthenticationService service = getIt<JwtAuthenticationService>();
-                await service.getCurrentUser();
-              }
-              , child: Text('Check')
               )
             ],
           ),

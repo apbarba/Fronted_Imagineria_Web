@@ -1,35 +1,27 @@
-
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
-import 'package:flutter_bloc_authentication/blocs/obras/obras_events.dart';
+import 'package:flutter_bloc_authentication/blocs/obras/obras_event.dart';
 import 'package:flutter_bloc_authentication/blocs/obras/obras_state.dart';
-import 'package:flutter_bloc_authentication/repositories/obras_repository.dart';
+import 'package:flutter_bloc_authentication/models/obras.dart';
+import 'package:flutter_bloc_authentication/repositories/repositories.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+class ObrasBloc extends Bloc<ObrasEvent, ObrasState> {
+  ObrasBloc() : super(ObrasInitial()) {
+    final ObrasRepository _obrasRepository = ObrasRepository();
 
-class ObrasBloc extends Bloc<ObrasEvent, ObrasState>{
+    on<GetObrasList>((event, emit) async {
+      try {
+        emit(ObrasLoading());
+        final list = await _obrasRepository.fetchObras();
 
-  final ObrasRepositoy _obrasRepositoy;
+        emit(ObrasLoaded(list as ObrasModel));
 
-  ObrasBloc(this._obrasRepositoy) : super(ObrasLoadingState()){
+        //   if (list.error != null){
 
-    on<LoadObrasEvent>((event, emit)) async {
-
-      emit(ObrasLoadingState());
-
-      try{
-        
-        final obras = await _obrasRepositoy.getObras();
-
-        emit(ObrasLoadedState(obras));
-      
-      }catch (e){
-        
-        emit(ObrasErrorState(e.toString()));
-
+        //     emit(ObrasError(list.error));
+        //    }
+      } on NetworkError {
+        emit(ObrasError("No se han podido mostrar las obras"));
       }
-
-    }
+    });
   }
 }

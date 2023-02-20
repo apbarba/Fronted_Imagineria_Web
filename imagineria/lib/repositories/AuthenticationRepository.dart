@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:flutter_bloc_authentication/models/login.dart';
@@ -11,7 +9,6 @@ import 'package:flutter_bloc_authentication/rest/rest.dart';
 @Order(-1)
 @singleton
 class AuthenticationRepository {
-
   late RestClient _client;
 
   AuthenticationRepository() {
@@ -22,13 +19,8 @@ class AuthenticationRepository {
   Future<dynamic> doLogin(String username, String password) async {
     String url = "/auth/login";
 
-    var jsonResponse = await _client.post(url, LoginRequest(username: username, password: password));
+    var jsonResponse = await _client.post(
+        url, LoginRequest(username: username, password: password));
     return LoginResponse.fromJson(jsonDecode(jsonResponse));
-
   }
-
-
-
-
-
 }
