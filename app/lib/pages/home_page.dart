@@ -7,6 +7,8 @@ import '../models/models.dart';
 
 import 'package:http/http.dart' as http;
 
+import 'obra_details_page.dart';
+
 class HomePage extends StatelessWidget {
   final User user;
 
@@ -42,6 +44,14 @@ class HomePage extends StatelessWidget {
                 return ListTile(
                   title: Text(data[index]['name']),
                   subtitle: Text(data[index]['titulo']),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ObraDetailsPage(obraId: (data[index]['id']))),
+                    );
+                  },
                 );
               },
             );
