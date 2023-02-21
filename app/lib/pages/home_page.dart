@@ -17,11 +17,8 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.user});
 
   Future<List<dynamic>> fetchData() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8080/obras/'), headers: {
-      'Authorization':
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzE1NTAwMS04Njc1LTE2ZmEtODE4Ni03NTQ3MGFmNDAwMDAiLCJpYXQiOjE2NzcwMDQ4NDUsImV4cCI6MTE1NTc3OTUxODV9.-OuRHpkJIbgnRe1i-ATwK-lZ7Db7M_Th5Ae0Rhv9998pR9DC3M3558CvgOjT2EfbAxmqFt3NdqBbGeJWyQdLpA'
-    });
+    final response = await http.get(Uri.parse('http://localhost:8080/obras/'),
+        headers: {'Authorization': 'Bearer ${user}'});
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["content"].toList();
     } else {
