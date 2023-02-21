@@ -12,20 +12,19 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Imagineria_App"),
+        title: Text('Register'),
       ),
       body: SafeArea(
         minimum: const EdgeInsets.all(16),
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            builder: (context, state) {
-          if (state is AuthenticationNotAuthenticated) {
-            return _AuthForm();
-          }
-
-          Navigator.of(context).pop();
-
-          return Text('Atrás');
-        }),
+          builder: (context, state) {
+            if (state is AuthenticationNotAuthenticated) {
+              return _AuthForm();
+            }
+            Navigator.of(context).pop();
+            return Text('Se devería volver para atras');
+          },
+        ),
       ),
     );
   }
@@ -34,8 +33,8 @@ class RegisterPage extends StatelessWidget {
 class _AuthForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //final authService = RepositoryProvider.of<AuthenticationService>(context);
     final authService = getIt<JwtAuthenticationService>();
-
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
 
     return Container(
@@ -50,12 +49,11 @@ class _AuthForm extends StatelessWidget {
 
 class _RegisterForm extends StatefulWidget {
   @override
-  _RegisterFormState createState() => _RegisterFormState();
+  __RegisterFormState createState() => __RegisterFormState();
 }
 
-class _RegisterFormState extends State<_RegisterForm> {
+class __RegisterFormState extends State<_RegisterForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _verifyPasswordController = TextEditingController();
@@ -89,119 +87,126 @@ class _RegisterFormState extends State<_RegisterForm> {
           _showError(state.error);
         }
       },
-      child:
-          BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
-        if (state is RegisterLoading) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.purple,
-            ),
-          );
-        }
-
-        return Form(
-          key: _key,
-          autovalidateMode: _autoValidate
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: "Username",
-                      filled: true,
-                      isDense: true,
+      child: BlocBuilder<RegisterBloc, RegisterState>(
+        builder: (context, state) {
+          if (state is RegisterLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Form(
+            key: _key,
+            autovalidateMode: _autoValidate
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+            child: SingleChildScrollView(
+              child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Username',
+                        filled: true,
+                        isDense: true,
+                      ),
+                      controller: _usernameController,
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: false,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'User Name is required.';
+                        }
+                        return null;
+                      },
                     ),
-                    controller: _usernameController,
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'El nombre de usuario es obligatorio';
-                      }
-                      return null;
-                    },
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Password', filled: true, isDense: true),
-                    obscureText: true,
-                    controller: _passwordController,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'La contrasela es obligatoria';
-                      }
-                      return null;
-                    },
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        filled: true,
+                        isDense: true,
+                      ),
+                      obscureText: true,
+                      controller: _passwordController,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Password is required.';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: TextFormField(
-                    decoration: InputDecoration(
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16),
+                    child: TextFormField(
+                      decoration: InputDecoration(
                         labelText: 'Verify Password',
                         filled: true,
-                        isDense: true),
-                    obscureText: true,
-                    controller: _verifyPasswordController,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'La verificación de la contraseña es obligatoria';
-                      }
-                      return null;
-                    },
+                        isDense: true,
+                      ),
+                      obscureText: true,
+                      controller: _verifyPasswordController,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Verify Password is required.';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Email', filled: true, isDense: true),
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'El email es obligatorio';
-                      }
-                      return null;
-                    },
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        filled: true,
+                        isDense: true,
+                      ),
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Email is required.';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Name', filled: true, isDense: true),
-                    obscureText: true,
-                    controller: _nameController,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Su nombre es obligatorio';
-                      }
-                      return null;
-                    },
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Full Name',
+                        filled: true,
+                        isDense: true,
+                      ),
+                      controller: _nameController,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Full Name is required.';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(40),
-                  ),
-                  child: Text('Registrarse'),
-                  onPressed: state is RegisterLoading
-                      ? () {}
-                      : _onRegisterButtonPressed(),
-                )
-              ],
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(40),
+                    ),
+                    child: Text('REGISTER'),
+                    onPressed: state is RegisterLoading
+                        ? () {}
+                        : _onRegisterButtonPressed,
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 

@@ -16,8 +16,8 @@ abstract class AuthenticationService {
   Future<User?> getCurrentUser();
   Future<User?> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
-  Future<User> register(String username, String password, String verifyPassword,
-      String email, String name);
+  Future<User?> register(String username, String password,
+      String verifyPassword, String email, String name);
 }
 
 /*
@@ -106,6 +106,6 @@ class JwtAuthenticationService extends AuthenticationService {
     return User(
         name: response.name ?? '',
         email: response.userName ?? '',
-        accessToken: response.refreshToken ?? '');
+        accessToken: response.token ?? '');
   }
 }

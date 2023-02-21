@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class RegisterResponse {
   String? id;
@@ -23,7 +24,7 @@ class RegisterResponse {
     userName = json['userName'];
     email = json['email'];
     name = json['name'];
-    createdAt = json['createdAt'];
+    createdAt = DateTime.tryParse(json['createdAt']);
     token = json['token'];
     refreshToken = json['refreshToken'];
   }
