@@ -66,7 +66,7 @@ class JwtAuthenticationService extends AuthenticationService {
       return User(
           email: user.username ?? "",
           name: user.fullName ?? "",
-          accessToken: user.token ?? "");
+          token: user.token ?? "");
     }
     return null;
   }
@@ -80,7 +80,7 @@ class JwtAuthenticationService extends AuthenticationService {
     return User(
         email: response.username ?? "",
         name: response.fullName ?? "",
-        accessToken: response.token ?? "");
+        token: response.token ?? "");
   }
 
   @override
@@ -106,6 +106,6 @@ class JwtAuthenticationService extends AuthenticationService {
     return User(
         name: response.name ?? '',
         email: response.username ?? '',
-        accessToken: response.token ?? '');
+        token: response.token ?? '');
   }
 }

@@ -12,17 +12,16 @@ class ObraDetailsPage extends StatelessWidget {
   ObraDetailsPage({required this.obraId}) : super();
 
   Future<Map<String, dynamic>> fetchObraDetails() async {
+    final User user;
     final response = await http
         .get(Uri.parse('http://localhost:8080/obras/${obraId}'), headers: {
       'Authorization':
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzFiMDM2ZC04Njc4LTE5MGUtODE4Ni03ODI5MTU4NTAwMDAiLCJpYXQiOjE2NzcwNTYyMzksImV4cCI6MTE1NTc4NDY1Nzl9.osNsOLUn7GpdvUNXnQv9wDFmPVptt6FivMWywc8mEfZyTxun0kyaCl1aEtcBmklDAHnAn-FdFBudsiqM35LInQ'
+          'Bearer eyJzdWIiOiJhYzFiMDM2ZC04Njc4LTE5MGUtODE4Ni03ODI5MTU4NTAwMDAiLCJpYXQiOjE2NzcwNTYyMzksImV4cCI6MTE1NTc4NDY1Nzl9.osNsOLUn7GpdvUNXnQv9wDFmPVptt6FivMWywc8mEfZyTxun0kyaCl1aEtcBmklDAHnAn-FdFBudsiqM35LInQ'
     });
     if (response.statusCode == 200) {
-      print(jsonDecode(response.body));
-
-      return jsonDecode(response.body);
+      return jsonDecode(response.body)["content"].toList();
     } else {
-      throw Exception('No se pueden cargar las obras');
+      throw Exception('Failed to load Obras');
     }
   }
 
