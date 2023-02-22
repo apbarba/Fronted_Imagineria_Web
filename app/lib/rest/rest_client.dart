@@ -10,6 +10,20 @@ class ApiConstants {
   //static String baseUrl = "http://10.0.2.2:8080";
 }
 
+class LoggingInterceptor implements InterceptorContract {
+  @override
+  Future<RequestData> interceptRequest({required RequestData data}) async {
+    print(data.toString());
+    return data;
+  }
+
+  @override
+  Future<ResponseData> interceptResponse({required ResponseData data}) async {
+    print(data.toString());
+    return data;
+  }
+}
+
 class HeadersApiInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {
@@ -33,8 +47,8 @@ class RestClient {
   RestClient();
 
   //final _httpClient = http.Client();
-  final _httpClient =
-      InterceptedClient.build(interceptors: [HeadersApiInterceptor()]);
+  final _httpClient = InterceptedClient.build(
+      interceptors: [HeadersApiInterceptor(), LoggingInterceptor()]);
 
   Future<dynamic> get(String url) async {
     try {

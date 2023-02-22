@@ -105,7 +105,7 @@ class JwtAuthenticationService extends AuthenticationService {
 
     return User(
         name: response.name ?? '',
-        email: response.userName ?? '',
+        email: response.username ?? '',
         accessToken: response.token ?? '');
   }
 }

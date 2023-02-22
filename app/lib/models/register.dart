@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class RegisterResponse {
   String? id;
-  String? userName;
+  String? username;
   String? email;
   String? name;
   DateTime? createdAt;
@@ -12,7 +12,7 @@ class RegisterResponse {
 
   RegisterResponse(
       {this.id,
-      this.userName,
+      this.username,
       this.email,
       this.name,
       this.createdAt,
@@ -21,7 +21,7 @@ class RegisterResponse {
 
   RegisterResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userName = json['userName'];
+    username = json['username'];
     email = json['email'];
     name = json['name'];
     createdAt = DateTime.tryParse(json['createdAt']);
@@ -44,7 +44,7 @@ class RegisterResponse {
     final Map<String, dynamic> data = <String, dynamic>{};
 
     data['id'] = id;
-    data['userName'] = userName;
+    data['username'] = username;
     data['email'] = email;
     data['name'] = name;
     data['createdAt'] = createdAt.toString();
@@ -80,7 +80,7 @@ class RegisterRequest {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
 
-    data['userName'] = username;
+    data['username'] = username;
     data['email'] = email;
     data['name'] = name;
     data['password'] = password;

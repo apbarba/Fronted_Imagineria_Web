@@ -17,8 +17,8 @@ class HomePage extends StatelessWidget {
   Future<List<dynamic>> fetchData() async {
     final response =
         await http.get(Uri.parse('http://localhost:8080/obras/'), headers: {
-      'Authorization':
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzE1NTAwMS04Njc1LTE2ZmEtODE4Ni03NTQ3MGFmNDAwMDAiLCJpYXQiOjE2NzcwMDQ4NDUsImV4cCI6MTE1NTc3OTUxODV9.-OuRHpkJIbgnRe1i-ATwK-lZ7Db7M_Th5Ae0Rhv9998pR9DC3M3558CvgOjT2EfbAxmqFt3NdqBbGeJWyQdLpA'
+      'Authorization': //modo agitanado
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzFiMDM2ZC04Njc4LTE5MGUtODE4Ni03ODI5MTU4NTAwMDAiLCJpYXQiOjE2NzcwNTMyMjUsImV4cCI6MTE1NTc4NDM1NjV9.zCjWjtmqIKis2sIWcgl7HCXMLefOtoattyTJ9t-ozG6x4gfpsFnYfMmrWaGR-xgrmSGK8JPmO5z5tbdWyMtYAQ'
     });
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["content"].toList();
