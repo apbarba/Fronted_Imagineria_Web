@@ -22,7 +22,7 @@ class RegisterPage extends StatelessWidget {
               return _AuthForm();
             }
             Navigator.of(context).pop();
-            return Text('Se devería volver para atras');
+            return Text('Se debería volver para atras');
           },
         ),
       ),

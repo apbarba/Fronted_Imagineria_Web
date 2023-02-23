@@ -151,8 +151,7 @@ class _AddObrasPageState extends State<AddObrasPage> {
             ElevatedButton(
               onPressed: () async {
                 final AuthenticationBloc authBloc =
-                    BlocProvider.of<AuthenticationBloc>(context, listen: false);
-                final String? id = user.id;
+                    BlocProvider.of<AuthenticationBloc>(context);
                 final String name = nameController.text;
                 final double precio = double.parse(precioController.text);
                 final String titulo = tituloController.text;
@@ -160,8 +159,7 @@ class _AddObrasPageState extends State<AddObrasPage> {
                 final String estado = estadoController.text;
                 final DateTime fecha = DateTime.parse(fechaController.text);
                 final String estilo = estiloController.text;
-                final Obras obra = Obras(
-                  id: id,
+                final ObrasRequest obra = ObrasRequest(
                   name: name,
                   precio: precio,
                   titulo: titulo,

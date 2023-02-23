@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import '../models/obras.dart';
 
 class ObrasRepository {
-  User? user;
+  late User user;
   late RestClient _client;
 
   ObrasRepository() {
@@ -19,7 +19,7 @@ class ObrasRepository {
     user = newUser;
   }
 
-  Future<dynamic> addObras(Obras obra) async {
+  Future<dynamic> addObras(ObrasRequest obra) async {
     var url = '/obras';
     var body = obra.toJson();
 
@@ -29,5 +29,44 @@ class ObrasRepository {
     print("${response.body}");
 
     return response;
+  }
+
+  Future<dynamic> addObras1(
+    String name,
+    double precio,
+    String titulo,
+    String img,
+    String estado,
+    DateTime fecha,
+    String estilo,
+  ) async {
+    String url = '/obras/';
+
+    print('addObras');
+
+    print('Request: ' +
+        ObrasRequest(
+                name: name,
+                precio: precio,
+                titulo: titulo,
+                img: img,
+                estado: estado,
+                fecha: fecha,
+                estilo: estilo)
+            .name!);
+
+    var jsonResponse = await _client.post(
+        url,
+        ObrasRequest(
+            name: name,
+            precio: precio,
+            titulo: titulo,
+            img: img,
+            estado: estado,
+            estilo: estilo));
+
+    print(ObrasRequest.fromJson(jsonDecode(jsonResponse)));
+
+    return ObrasRequest.fromJson(jsonDecode(jsonResponse));
   }
 }
