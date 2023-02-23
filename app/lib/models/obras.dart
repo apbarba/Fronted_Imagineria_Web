@@ -7,7 +7,7 @@ class Obras {
   String? titulo;
   String? img;
   String? estado;
-  DateTime? fecha;
+  String? fecha;
   String? estilo;
   String? createdAt;
   Null? imaginero;
@@ -55,11 +55,11 @@ class Obras {
 
 class ObrasRequest {
   String? name;
-  double? precio;
+  String? precio;
   String? titulo;
   String? img;
   String? estado;
-  DateTime? fecha;
+  String? fecha;
   String? estilo;
 
   ObrasRequest(

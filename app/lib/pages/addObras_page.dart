@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_authentication/config/locator.dart';
 import 'package:flutter_bloc_authentication/models/obras.dart';
+import 'package:flutter_bloc_authentication/pages/obras_page.dart';
 import 'package:flutter_bloc_authentication/repositories/AuthenticationRepository.dart';
+import 'package:flutter_bloc_authentication/services/localstorage_service.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc_authentication/models/user.dart';
 import 'package:flutter_bloc_authentication/blocs/authentication/authentication_bloc.dart';
@@ -22,8 +26,9 @@ class AddObrasPage extends StatefulWidget {
 
 class _AddObrasPageState extends State<AddObrasPage> {
   //ObrasRepository obrasRepository = ObrasRepository();
-  late final User user;
+
   late DateTime _selectedDate;
+  final _localStorageService = GetStorage();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController precioController = TextEditingController();
@@ -153,11 +158,11 @@ class _AddObrasPageState extends State<AddObrasPage> {
                 final AuthenticationBloc authBloc =
                     BlocProvider.of<AuthenticationBloc>(context);
                 final String name = nameController.text;
-                final double precio = double.parse(precioController.text);
+                final String precio = precioController.text;
                 final String titulo = tituloController.text;
                 final String img = imgController.text;
                 final String estado = estadoController.text;
-                final DateTime fecha = DateTime.parse(fechaController.text);
+                final String fecha = fechaController.text;
                 final String estilo = estiloController.text;
                 final ObrasRequest obra = ObrasRequest(
                   name: name,
@@ -169,7 +174,8 @@ class _AddObrasPageState extends State<AddObrasPage> {
                   estilo: estilo,
                 );
                 await widget.obrasRepository.addObras(obra);
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: ((context) => ObrasPage())));
               },
               child: Text('Agregar obra'),
             ),

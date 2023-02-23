@@ -20,40 +20,24 @@ class ObrasRepository {
   }
 
   Future<dynamic> addObras(ObrasRequest obra) async {
-    var url = '/obras';
+    var url = '/obras/';
     var body = obra.toJson();
 
     var response = await _client.post(url, body);
-
-    print("${response.statusCode}");
-    print("${response.body}");
 
     return response;
   }
 
   Future<dynamic> addObras1(
     String name,
-    double precio,
+    String precio,
     String titulo,
     String img,
     String estado,
-    DateTime fecha,
+    String fecha,
     String estilo,
   ) async {
     String url = '/obras/';
-
-    print('addObras');
-
-    print('Request: ' +
-        ObrasRequest(
-                name: name,
-                precio: precio,
-                titulo: titulo,
-                img: img,
-                estado: estado,
-                fecha: fecha,
-                estilo: estilo)
-            .name!);
 
     var jsonResponse = await _client.post(
         url,

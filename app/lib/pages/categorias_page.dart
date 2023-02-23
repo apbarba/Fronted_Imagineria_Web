@@ -46,10 +46,10 @@ class CategoriasPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Categorias'),
         actions: [
-          ElevatedButton(
-            child: Icon(Icons.add),
-            onPressed: () => _navigateAddObras(context),
-          ),
+          //ElevatedButton(
+          //  child: Icon(Icons.add),
+          //  onPressed: () => _navigateAddObras(context),
+          //),
         ],
       ),
       body: FutureBuilder<List>(

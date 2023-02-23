@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_authentication/repositories/obras_repository.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../models/user.dart';
 import 'addObras_page.dart';
@@ -11,18 +12,18 @@ import 'obras_details.dart';
 import 'package:http/http.dart' as http;
 
 class ObrasPage extends StatelessWidget {
-  final User user;
-
+  final _localStorageService = GetStorage();
   // dynamic _data;
 
-  const ObrasPage({super.key, required this.user});
+  ObrasPage({super.key});
 
   Future<List<dynamic>> fetchData() async {
     final response =
         await http.get(Uri.parse('http://localhost:8080/obras/'), headers: {
       'Authorization': //modo agitanado
-          'Bearer ${user.token}'
+          'Bearer ${_localStorageService.read("token")}'
     });
+    print('Bearer ${_localStorageService.read("token")}');
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["content"].toList();
     } else {
@@ -31,7 +32,7 @@ class ObrasPage extends StatelessWidget {
   }
 
   _navigateAddObras(BuildContext context) async {
-    final result = await Navigator.push(
+    final result = await Navigator.pushReplacement(
       context,
       MaterialPageRoute(
           builder: (context) => AddObrasPage(

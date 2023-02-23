@@ -9,11 +9,11 @@ abstract class ObrasEvent extends Equatable {
 
 class ObrasButtonPresses extends ObrasEvent {
   final String name;
-  final double precio;
+  final String precio;
   final String titulo;
   final String img;
   final String estado;
-  final DateTime fecha;
+  final String fecha;
   final String estilo;
 
   ObrasButtonPresses(

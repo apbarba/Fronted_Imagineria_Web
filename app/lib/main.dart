@@ -4,8 +4,10 @@ import 'package:flutter_bloc_authentication/config/locator.dart';
 import 'package:flutter_bloc_authentication/blocs/blocs.dart';
 import 'package:flutter_bloc_authentication/services/services.dart';
 import 'package:flutter_bloc_authentication/pages/pages.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+Future<void> main() async {
+  await GetStorage.init;
   //WidgetsFlutterBinding.ensureInitialized();
   //await SharedPreferences.getInstance();
   setupAsyncDependencies();
