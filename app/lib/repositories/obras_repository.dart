@@ -1,35 +1,29 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc_authentication/models/user.dart';
+import 'package:flutter_bloc_authentication/rest/rest.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/obras.dart';
+
 class ObrasRepository {
-  late final User user;
+  User? user;
+  late RestClient _client;
 
-  Future<http.Response> addObras(
-      String nameController,
-      String precioController,
-      String tituloController,
-      String imgController,
-      String estadoController,
-      DateTime fechaController,
-      String estiloController) async {
-    var url = Uri.parse('http://localhost:8080/obras');
+  ObrasRepository() {
+    _client = GetIt.I.get<RestClient>();
+  }
 
-    Map data = {
-      'name': '$nameController',
-      'precio': '$precioController',
-      'titulo': '$tituloController',
-      'img': '$imgController',
-      'estado': '$estadoController',
-      'fecha': '$fechaController',
-      'estilo': '$estiloController'
-    };
+  void init(User newUser) {
+    user = newUser;
+  }
 
-    var body = json.encode(data);
+  Future<dynamic> addObras(Obras obra) async {
+    var url = '/obras';
+    var body = obra.toJson();
 
-    var response = await http.post(url,
-        headers: {'Authorization': 'Bearer ${user.token}', body: body});
+    var response = await _client.post(url, body);
 
     print("${response.statusCode}");
     print("${response.body}");

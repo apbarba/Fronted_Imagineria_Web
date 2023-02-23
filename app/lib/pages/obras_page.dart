@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_authentication/repositories/obras_repository.dart';
 
 import '../models/user.dart';
 import 'addObras_page.dart';
@@ -32,7 +33,10 @@ class ObrasPage extends StatelessWidget {
   _navigateAddObras(BuildContext context) async {
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddObrasPage()),
+      MaterialPageRoute(
+          builder: (context) => AddObrasPage(
+                obrasRepository: ObrasRepository(),
+              )),
     );
   }
 
