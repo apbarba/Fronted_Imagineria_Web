@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  'Welcome, ${user.name}',
+                  'Bienvenid@ ${user.name}',
                   style: TextStyle(fontSize: 24),
                 ),
                 const SizedBox(
@@ -33,9 +33,7 @@ class HomePage extends StatelessWidget {
                 ),
                 TextButton(
                   //textColor: Theme.of(context).primaryColor,
-                  style: TextButton.styleFrom(
-                    primary: Theme.of(context).primaryColor,
-                  ),
+                  style: TextButton.styleFrom(),
                   child: Text('Logout'),
                   onPressed: () {
                     authBloc.add(UserLoggedOut());

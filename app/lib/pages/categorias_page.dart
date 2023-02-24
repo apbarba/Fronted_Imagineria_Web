@@ -136,7 +136,7 @@ class ItemList extends StatelessWidget {
                             children: [
                               Container(
                                 child: Text(
-                                  list[i]['name'].toString(),
+                                  list[i]['nombre'].toString(),
                                   style: TextStyle(
                                       fontSize: 20.0, color: Colors.black),
                                 ),
@@ -150,7 +150,7 @@ class ItemList extends StatelessWidget {
                             children: [
                               Container(
                                 child: Text(
-                                  list[i]['titulo'].toString(),
+                                  list[i]['descripcion'].toString(),
                                   style: TextStyle(
                                       fontSize: 15.0, color: Colors.black),
                                 ),
