@@ -6,6 +6,7 @@ import 'package:flutter_bloc_authentication/blocs/authentication/authentication.
 import 'package:flutter_bloc_authentication/pages/categorias_page.dart';
 import 'package:flutter_bloc_authentication/pages/obras_page.dart';
 import '../models/models.dart';
+import 'Imaginero_Page.dart';
 
 class HomePage extends StatelessWidget {
   final User user;
@@ -61,6 +62,18 @@ class HomePage extends StatelessWidget {
                                     CategoriasPage(user: user)));
                       },
                       child: Text('Categorias')),
+                ),
+                SizedBox(
+                  width: 100,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ImaginerosPage(user: user)));
+                      },
+                      child: Text('Imagineros')),
                 ),
               ],
             ),
