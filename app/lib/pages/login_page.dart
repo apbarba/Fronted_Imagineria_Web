@@ -28,7 +28,6 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     Text(state.message),
                     TextButton(
-                      //textColor: Theme.of(context).primaryColor,
                       child: Text('Retry'),
                       onPressed: () {
                         authBloc.add(AppLoaded());
@@ -52,7 +51,6 @@ class LoginPage extends StatelessWidget {
 class _AuthForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //final authService = RepositoryProvider.of<AuthenticationService>(context);
     final authService = getIt<JwtAuthenticationService>();
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
 
@@ -114,39 +112,70 @@ class __SignInFormState extends State<_SignInForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Email address',
-                      filled: true,
-                      isDense: true,
-                    ),
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Email is required.';
-                      }
-                      return null;
-                    },
+                  const SizedBox(
+                    height: 20,
                   ),
+                  Image.network(
+                      "https://upload.wikimedia.org/wikipedia/commons/b/b9/Escudo_Hermandad_Expiracion_Esperanza_Sanlucar_de_Bda.gif"),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        fillColor: Colors.black,
+                        labelText: 'Username',
+                        filled: true,
+                        isDense: true,
+                      ),
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: false,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Username is required.';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
                   SizedBox(
                     height: 12,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      isDense: true,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        fillColor: Colors.black,
+                        labelText: 'Password',
+                        filled: true,
+                        isDense: true,
+                      ),
+                      obscureText: true,
+                      controller: _passwordController,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Password is required.';
+                        }
+                        return null;
+                      },
                     ),
-                    obscureText: true,
-                    controller: _passwordController,
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Password is required.';
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(
                     height: 16,

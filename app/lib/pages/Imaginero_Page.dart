@@ -67,42 +67,6 @@ class ImaginerosPage extends StatelessWidget {
           }),
     );
   }
-
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(title: Text('My Widget')),
-//      body: FutureBuilder(
-//        future: fetchData(),
-//        builder: (context, snapshot) {
-//          if (snapshot.hasData) {
-//            List<dynamic> data = snapshot.data as List<dynamic>;
-//            return ListView.builder(
-//              itemCount: data.length,
-//              itemBuilder: (context, index) {
-//                return ListTile(
-//                  title: Text(data[index]['name']),
-//                  subtitle: Text(data[index]['name']),
-//                  onTap: () {
-//                    Navigator.push(
-//                      context,
-//                      MaterialPageRoute(
-//                          builder: (context) => ObraDetailsPage(
-//                                obraId: (data[index]['id']),
-//                              )),
-//                    );
-//                  },
-//                );
-//              },
-//            );
-//          } else if (snapshot.hasError) {
-//            return Text("${snapshot.error}");
-//          }
-//          return CircularProgressIndicator();
-//        },
-//      ),
-//    );
-//  }
 }
 
 class ItemList extends StatelessWidget {
