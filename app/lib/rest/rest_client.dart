@@ -51,18 +51,29 @@ class RestClient {
   final _httpClient = InterceptedClient.build(
       interceptors: [HeadersApiInterceptor(), LoggingInterceptor()]);
 
-  Future<dynamic> get(String url) async {
+  Future<dynamic> get(String url, {required Map<String, String> headers}) async {
     try {
       Uri uri = Uri.parse(ApiConstants.baseUrl + url);
 
-      final response = await _httpClient.get(uri);
+      final response = await _httpClient.get(uri, headers:headers);
       var responseJson = _response(response);
       return responseJson;
     } on SocketException catch (ex) {
       throw FetchDataException('No internet connection: ${ex.message}');
     }
   }
+    Future<dynamic> post1(String url, dynamic body, {required Map<String, String> headers}) async {
+    try {
+      Uri uri = Uri.parse(ApiConstants.baseUrl + url);
 
+      final response = await _httpClient.post(uri, body: jsonEncode(body),headers: headers);
+      var responseJson = _response(response);
+      return responseJson;
+    } on SocketException catch (ex) {
+      throw FetchDataException('No internet connection: ${ex.message}');
+    }
+  }
+  
   Future<dynamic> post(String url, dynamic body) async {
     try {
       Uri uri = Uri.parse(ApiConstants.baseUrl + url);

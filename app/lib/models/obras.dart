@@ -61,6 +61,7 @@ class ObrasRequest {
   String? estado;
   String? fecha;
   String? estilo;
+  String? categoria;
 
   ObrasRequest(
       {this.name,
@@ -69,7 +70,7 @@ class ObrasRequest {
       this.img,
       this.estado,
       this.fecha,
-      this.estilo});
+      this.estilo,this.categoria});
 
   ObrasRequest.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -79,6 +80,7 @@ class ObrasRequest {
     estado = json['estado'];
     fecha = json['fecha'];
     estilo = json['estilo'];
+    categoria = json['categoria'];
   }
 
   Map<String, dynamic> toJson() {
@@ -91,6 +93,7 @@ class ObrasRequest {
     data['estado'] = this.estado;
     data['fecha'] = this.fecha;
     data['estilo'] = this.estilo;
+    data['categoria'] = this.categoria;
 
     return data;
   }

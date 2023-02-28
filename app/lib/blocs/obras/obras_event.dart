@@ -15,6 +15,7 @@ class ObrasButtonPresses extends ObrasEvent {
   final String estado;
   final String fecha;
   final String estilo;
+  final String categoria;
 
   ObrasButtonPresses(
       {required this.name,
@@ -23,7 +24,8 @@ class ObrasButtonPresses extends ObrasEvent {
       required this.img,
       required this.estado,
       required this.fecha,
-      required this.estilo});
+      required this.estilo,
+      required this.categoria});
 
   @override
   List<Object> get props => [];

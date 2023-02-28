@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_bloc_authentication/models/user.dart';
 import 'package:flutter_bloc_authentication/rest/rest.dart';
 import 'package:get_it/get_it.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/obras.dart';
@@ -10,7 +11,7 @@ import '../models/obras.dart';
 class ObrasRepository {
   late User user;
   late RestClient _client;
-
+  final box = GetStorage();
   ObrasRepository() {
     _client = GetIt.I.get<RestClient>();
   }
@@ -22,7 +23,9 @@ class ObrasRepository {
   Future<dynamic> addObras(ObrasRequest obra) async {
     var url = '/obras/';
     var body = obra.toJson();
-
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${box.read('token')}'
+    };
     var response = await _client.post(url, body);
 
     return response;
@@ -36,10 +39,13 @@ class ObrasRepository {
     String estado,
     String fecha,
     String estilo,
+    String categoria,
   ) async {
     String url = '/obras/';
-
-    var jsonResponse = await _client.post(
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${box.read('token')}'
+    };
+    var jsonResponse = await _client.post1(
         url,
         ObrasRequest(
             name: name,
@@ -47,7 +53,8 @@ class ObrasRepository {
             titulo: titulo,
             img: img,
             estado: estado,
-            estilo: estilo));
+            estilo: estilo,
+            categoria: categoria),headers: headers);
 
     print(ObrasRequest.fromJson(jsonDecode(jsonResponse)));
 

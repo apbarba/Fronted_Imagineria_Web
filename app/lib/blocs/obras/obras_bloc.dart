@@ -29,7 +29,7 @@ class ObrasBloc extends Bloc<ObrasEvent, ObrasState> {
       print('ButtonPresses');
 
       final user = await _obrasRepository.addObras1(event.name, event.precio,
-          event.titulo, event.img, event.estado, event.fecha, event.estilo);
+          event.titulo, event.img, event.estado, event.fecha, event.estilo,event.categoria);
 
       if (user != null) {
         _authenticationBloc.add(UserLoggedIn(user: user));
